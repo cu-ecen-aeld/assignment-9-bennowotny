@@ -13,11 +13,12 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 inherit module
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
 SRC_URI = "git://git@github.com/cu-ecen-aeld/assignment-7-bennowotny.git;protocol=ssh;branch=main \
            file://0001-only-build-misc-modules-and-scull.patch \
            file://0001-use-updated-KERNEL_SRC-variables-for-kirkstone.patch \
            file://ldd-misc-modules \
-           file://remove-default-faulty.cfg \
            "
 # Modify these as desired
 PV = "1.0+git${SRCPV}"
