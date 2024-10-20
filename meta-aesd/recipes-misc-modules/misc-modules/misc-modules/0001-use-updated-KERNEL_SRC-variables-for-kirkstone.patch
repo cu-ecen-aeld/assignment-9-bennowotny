@@ -1,0 +1,51 @@
+From 409349eda0cc126fe2e8d94ed1fcb40b40778075 Mon Sep 17 00:00:00 2001
+From: Ben Nowotny <bennowotny65535@gmail.com>
+Date: Sat, 19 Oct 2024 21:03:57 -0500
+Subject: [PATCH] use updated KERNEL_SRC variables for kirkstone
+
+---
+ misc-modules/Makefile | 6 +++---
+ scull/Makefile        | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/misc-modules/Makefile b/misc-modules/Makefile
+index f4e6e34..97b61e2 100644
+--- a/misc-modules/Makefile
++++ b/misc-modules/Makefile
+@@ -12,15 +12,15 @@ ifeq ($(KERNELRELEASE),)
+ 
+     # Assume the source tree is where the running kernel was built
+     # You should set KERNELDIR in the environment if it's elsewhere
+-    KERNELDIR ?= /lib/modules/$(shell uname -r)/build
++    KERNEL_SRC ?= /lib/modules/$(shell uname -r)/build
+     # The current directory is passed to sub-makes as argument
+     PWD := $(shell pwd)
+ 
+ modules:
+-	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
++	$(MAKE) -C $(KERNEL_SRC) M=$(PWD) modules
+ 
+ modules_install:
+-	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
++	$(MAKE) -C $(KERNEL_SRC) M=$(PWD) modules_install
+ 
+ clean:
+ 	rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions *.mod modules.order *.symvers
+diff --git a/scull/Makefile b/scull/Makefile
+index 3f6c8d0..4ba0fc3 100644
+--- a/scull/Makefile
++++ b/scull/Makefile
+@@ -23,11 +23,11 @@ obj-m	:= scull.o
+ 
+ else
+ 
+-KERNELDIR ?= /lib/modules/$(shell uname -r)/build
++KERNEL_SRC ?= /lib/modules/$(shell uname -r)/build
+ PWD       := $(shell pwd)
+ 
+ modules:
+-	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
++	$(MAKE) -C $(KERNEL_SRC) M=$(PWD) modules
+ 
+ endif
+ 

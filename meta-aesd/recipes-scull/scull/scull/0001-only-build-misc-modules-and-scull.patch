@@ -1,0 +1,23 @@
+From 1a61c98b6e721ff878ea4e8ccda090161c933b1a Mon Sep 17 00:00:00 2001
+From: Ben Nowotny <bennowotny65535@gmail.com>
+Date: Sat, 19 Oct 2024 20:03:22 -0500
+Subject: [PATCH] only build misc-modules and scull
+
+---
+ Makefile | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 7b08c49..c4f2e2e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,5 @@
+ 
+-SUBDIRS =  misc-progs misc-modules \
+-           skull scull scullc scullp lddbus sculld scullv shortprint simple tty \
+-	   pci usb\
+-	   sbull snull short
++SUBDIRS =  misc-modules scull
+ 
+ all: subdirs
+ 
