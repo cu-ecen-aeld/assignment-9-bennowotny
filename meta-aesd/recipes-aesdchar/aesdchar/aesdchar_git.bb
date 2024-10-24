@@ -11,7 +11,8 @@ inherit module
 inherit logging
 
 SRC_URI = "git://git@github.com/cu-ecen-aeld/assignments-3-and-later-bennowotny.git;protocol=ssh;branch=master \
-           "
+           file://load-aesdchar \
+          "
 
 # Modify these as desired
 PV = "1.0+git${SRCPV}"
@@ -25,3 +26,15 @@ S = "${WORKDIR}/git/aesd-char-driver"
 RPROVIDES:${PN} += "kernel-module-aesdchar"
 EXTRA_OEMAKE:append:task-install = "  -C ${STAGING_KERNEL_DIR} M=${S}"
 EXTRA_OEMAKE += " KERNELDIR=${STAGING_KERNEL_DIR}"
+
+inherit update-rc.d
+
+INITSCRIPT_PACKAGES = "${PN}"
+INITSCRIPT_NAME:${PN} = "load-aesdchar"
+
+FILES:${PN} += "${sysconfdir}/init.d/load-aesdchar"
+
+do_install:append(){
+  install -d ${D}${sysconfdir}/init.d
+	install -m 0755 ${WORKDIR}/load-aesdchar ${D}${sysconfdir}/init.d
+}

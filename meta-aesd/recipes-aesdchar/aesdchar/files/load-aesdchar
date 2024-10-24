@@ -29,12 +29,10 @@ unload_module() {
 
 case "$1" in
 "start")
-  load_module faulty /dev/faulty
-  load_module hello
+  load_module aesdchar /dev/aesdchar
   ;;
 "stop")
-  unload_module faulty /dev/faulty
-  unload_module hello
+  unload_module aesdchar /dev/aesdchar
   ;;
 *)
   echo "Usage: $0 [start|stop]"

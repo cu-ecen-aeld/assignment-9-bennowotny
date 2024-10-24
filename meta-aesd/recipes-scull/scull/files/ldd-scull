@@ -20,7 +20,7 @@ unload_module() {
   shift
   rm_device="$*"
   if [ "$rm_device" ]; then
-    for device in $create_device; do
+    for device in $rm_device; do
       rm -rf "$device"
     done
   fi
