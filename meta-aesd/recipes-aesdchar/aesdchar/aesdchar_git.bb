@@ -12,6 +12,7 @@ inherit logging
 
 SRC_URI = "git://git@github.com/cu-ecen-aeld/assignments-3-and-later-bennowotny.git;protocol=ssh;branch=master \
            file://load-aesdchar \
+           file://0001-enable-debug-to-help-fix-bug.patch;patchdir=.. \
            "
 
 # Modify these as desired
