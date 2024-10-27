@@ -1,0 +1,31 @@
+From ad3f78e2278cc52870240702d57696e3bf9f68e0 Mon Sep 17 00:00:00 2001
+From: Ben Nowotny <bennowotny65535@gmail.com>
+Date: Sun, 27 Oct 2024 18:52:56 -0500
+Subject: [PATCH] patch string parsing
+
+---
+ server/server_behavior.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/server/server_behavior.c b/server/server_behavior.c
+index 5318449..7593110 100644
+--- a/server/server_behavior.c
++++ b/server/server_behavior.c
+@@ -101,7 +101,7 @@ static int write_safe_to_file_end(char *data, size_t dataSize, FILE *file,
+ }
+ 
+ static int ioctl_handling(const char* data, size_t dataSize, FILE* tmpFile, pthread_mutex_t* tmpFileMutex, int connectionFd){
+-  const char* xStartPtr = data + sizeof(IOCTL_CMD_STRING);
++  const char* xStartPtr = data + sizeof(IOCTL_CMD_STRING) - 1; // drop null-termination
+   size_t xStrLen = 0;
+   const char* yStartPtr = NULL;
+   size_t yStrLen = 0;
+@@ -129,7 +129,7 @@ static int ioctl_handling(const char* data, size_t dataSize, FILE* tmpFile, pthr
+     return 1;
+   }
+   
+-  // printf("'%s' %d '%s' %d", xStartPtr, xStrLen, yStartPtr, yStrLen);
++  printf("'%s' %zu '%s' %zu", xStartPtr, xStrLen, yStartPtr, yStrLen);
+   char xStr[100] = {0};
+   char yStr[100] = {0};
+   memcpy(xStr, xStartPtr, xStrLen);

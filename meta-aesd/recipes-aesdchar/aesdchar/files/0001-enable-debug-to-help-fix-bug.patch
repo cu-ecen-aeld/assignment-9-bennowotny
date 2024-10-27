@@ -1,0 +1,36 @@
+From a2f870f02d956450b35283d14e82d8ad94b32f29 Mon Sep 17 00:00:00 2001
+From: Ben Nowotny <bennowotny65535@gmail.com>
+Date: Sun, 27 Oct 2024 18:53:13 -0500
+Subject: [PATCH] enable debug to help fix bug
+
+---
+ aesd-char-driver/aesdchar.h | 2 +-
+ aesd-char-driver/main.c     | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/aesd-char-driver/aesdchar.h b/aesd-char-driver/aesdchar.h
+index b42cfe3..b901f5b 100644
+--- a/aesd-char-driver/aesdchar.h
++++ b/aesd-char-driver/aesdchar.h
+@@ -12,7 +12,7 @@
+ #include <linux/cdev.h>
+ #include <linux/mutex.h>
+ 
+-// #define AESD_DEBUG 1  //Remove comment on this line to enable debug
++#define AESD_DEBUG 1  //Remove comment on this line to enable debug
+ 
+ #undef PDEBUG             /* undef it, just in case */
+ #ifdef AESD_DEBUG
+diff --git a/aesd-char-driver/main.c b/aesd-char-driver/main.c
+index 61d4c47..a03a118 100644
+--- a/aesd-char-driver/main.c
++++ b/aesd-char-driver/main.c
+@@ -336,6 +336,8 @@ long aesd_ioctl (struct file *fp, unsigned int opcode, unsigned long param){
+         return -EINVAL;
+     }
+ 
++    PDEBUG("parsed ioctl data: cmd %d offset %d", command_data.write_cmd, command_data.write_cmd_offset);
++
+     if(mutex_lock_interruptible(&device->buffer_mutex) != 0){
+         return -EINTR;
+     }
