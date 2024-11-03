@@ -12,12 +12,11 @@ inherit logging
 
 SRC_URI = "git://git@github.com/cu-ecen-aeld/assignments-3-and-later-bennowotny.git;protocol=ssh;branch=master \
            file://load-aesdchar \
-           file://0001-enable-debug-to-help-fix-bug.patch;patchdir=.. \
            "
 
 # Modify these as desired
 PV = "1.0+git${SRCPV}"
-SRCREV = "3eb101e45ad15a1be5c48b65a3aaaeaea237bc2b"
+SRCREV = "8bd55cd383e6076e962b1a481271cb0aab0119bf"
 
 S = "${WORKDIR}/git/aesd-char-driver"
 
